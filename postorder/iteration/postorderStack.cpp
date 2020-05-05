@@ -66,3 +66,24 @@ std::vector<int> postorderStack3(TreeNode* root){
         }
         return res;
 }
+
+std::vector<int> postorderStack4(TreeNode* root){
+        std::vector<int> res;
+        if(!root) return res;
+        std::stack<TreeNode*> s;
+        s.push(root);
+        TreeNode* pre = root;
+        while(!s.empty()){
+                TreeNode* t = s.top();
+                if((!t->left && !t->right) || t->left == pre || t->right == pre){
+                        res.push_back(t->val);
+                        s.pop();
+                        pre = t;
+                }
+                else{
+                        if(t->right) s.push(t->right);
+                        if(t->left) s.push(t->left);
+                }
+        }
+        return res;
+}
